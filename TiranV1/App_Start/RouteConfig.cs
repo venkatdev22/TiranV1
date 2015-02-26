@@ -18,6 +18,12 @@ namespace TiranV1
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "ProfileRoute",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Profile", action = "Index", id = UrlParameter.Optional }
+            );
         }
     }
 }

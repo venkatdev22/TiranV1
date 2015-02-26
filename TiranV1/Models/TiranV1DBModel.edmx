@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TiranV1DBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="TiranV1DBModelStoreContainer">
+          <EntitySet Name="Candidate_Tbl" EntityType="TiranV1DBModel.Store.Candidate_Tbl" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="CandidateSkills_Tbl" EntityType="TiranV1DBModel.Store.CandidateSkills_Tbl" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Category_Tbl" EntityType="TiranV1DBModel.Store.Category_Tbl" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Skills_Tbl" EntityType="TiranV1DBModel.Store.Skills_Tbl" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SkillsCategory_Tbl" EntityType="TiranV1DBModel.Store.SkillsCategory_Tbl" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_candiateid" Association="TiranV1DBModel.Store.FK_candiateid">
+            <End Role="Candidate_Tbl" EntitySet="Candidate_Tbl" />
+            <End Role="CandidateSkills_Tbl" EntitySet="CandidateSkills_Tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_category" Association="TiranV1DBModel.Store.FK_category">
+            <End Role="Category_Tbl" EntitySet="Category_Tbl" />
+            <End Role="SkillsCategory_Tbl" EntitySet="SkillsCategory_Tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_skill" Association="TiranV1DBModel.Store.FK_skill">
+            <End Role="Skills_Tbl" EntitySet="Skills_Tbl" />
+            <End Role="SkillsCategory_Tbl" EntitySet="SkillsCategory_Tbl" />
+          </AssociationSet>
+          <AssociationSet Name="FK_skillid" Association="TiranV1DBModel.Store.FK_skillid">
+            <End Role="Skills_Tbl" EntitySet="Skills_Tbl" />
+            <End Role="CandidateSkills_Tbl" EntitySet="CandidateSkills_Tbl" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Candidate_Tbl">
+          <Key>
+            <PropertyRef Name="CandidateID" />
+          </Key>
+          <Property Name="CandidateID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="varchar" MaxLength="255" />
+          <Property Name="LastName" Type="varchar" MaxLength="255" />
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="EmailID" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="Psword" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="ConfirmPsword" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="AvatarUrl" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="CandidateSkills_Tbl">
+          <Key>
+            <PropertyRef Name="CandidateID" />
+            <PropertyRef Name="SkillID" />
+          </Key>
+          <Property Name="CandidateID" Type="int" Nullable="false" />
+          <Property Name="SkillID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Category_Tbl">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="varchar" Nullable="false" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Skills_Tbl">
+          <Key>
+            <PropertyRef Name="SkillID" />
+          </Key>
+          <Property Name="SkillID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SkillName" Type="varchar" Nullable="false" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="SkillsCategory_Tbl">
+          <Key>
+            <PropertyRef Name="SkillID" />
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="SkillID" Type="int" Nullable="false" />
+          <Property Name="CategoryID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_candiateid">
+          <End Role="Candidate_Tbl" Type="TiranV1DBModel.Store.Candidate_Tbl" Multiplicity="1" />
+          <End Role="CandidateSkills_Tbl" Type="TiranV1DBModel.Store.CandidateSkills_Tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Candidate_Tbl">
+              <PropertyRef Name="CandidateID" />
+            </Principal>
+            <Dependent Role="CandidateSkills_Tbl">
+              <PropertyRef Name="CandidateID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_category">
+          <End Role="Category_Tbl" Type="TiranV1DBModel.Store.Category_Tbl" Multiplicity="1" />
+          <End Role="SkillsCategory_Tbl" Type="TiranV1DBModel.Store.SkillsCategory_Tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category_Tbl">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="SkillsCategory_Tbl">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_skill">
+          <End Role="Skills_Tbl" Type="TiranV1DBModel.Store.Skills_Tbl" Multiplicity="1" />
+          <End Role="SkillsCategory_Tbl" Type="TiranV1DBModel.Store.SkillsCategory_Tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skills_Tbl">
+              <PropertyRef Name="SkillID" />
+            </Principal>
+            <Dependent Role="SkillsCategory_Tbl">
+              <PropertyRef Name="SkillID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_skillid">
+          <End Role="Skills_Tbl" Type="TiranV1DBModel.Store.Skills_Tbl" Multiplicity="1" />
+          <End Role="CandidateSkills_Tbl" Type="TiranV1DBModel.Store.CandidateSkills_Tbl" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skills_Tbl">
+              <PropertyRef Name="SkillID" />
+            </Principal>
+            <Dependent Role="CandidateSkills_Tbl">
+              <PropertyRef Name="SkillID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TiranV1DBModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="TiranV1DBEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Candidate_Tbl" EntityType="TiranV1DBModel.Candidate_Tbl" />
+          <EntitySet Name="Category_Tbl" EntityType="TiranV1DBModel.Category_Tbl" />
+          <EntitySet Name="Skills_Tbl" EntityType="TiranV1DBModel.Skills_Tbl" />
+          <AssociationSet Name="CandidateSkills_Tbl" Association="TiranV1DBModel.CandidateSkills_Tbl">
+            <End Role="Candidate_Tbl" EntitySet="Candidate_Tbl" />
+            <End Role="Skills_Tbl" EntitySet="Skills_Tbl" />
+          </AssociationSet>
+          <AssociationSet Name="SkillsCategory_Tbl" Association="TiranV1DBModel.SkillsCategory_Tbl">
+            <End Role="Category_Tbl" EntitySet="Category_Tbl" />
+            <End Role="Skills_Tbl" EntitySet="Skills_Tbl" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Candidate_Tbl">
+          <Key>
+            <PropertyRef Name="CandidateID" />
+          </Key>
+          <Property Name="CandidateID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="LastName" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="EmailID" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="Psword" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="ConfirmPsword" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Name="AvatarUrl" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Skills_Tbl" Relationship="TiranV1DBModel.CandidateSkills_Tbl" FromRole="Candidate_Tbl" ToRole="Skills_Tbl" />
+        </EntityType>
+        <EntityType Name="Category_Tbl">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Skills_Tbl" Relationship="TiranV1DBModel.SkillsCategory_Tbl" FromRole="Category_Tbl" ToRole="Skills_Tbl" />
+        </EntityType>
+        <EntityType Name="Skills_Tbl">
+          <Key>
+            <PropertyRef Name="SkillID" />
+          </Key>
+          <Property Name="SkillID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="SkillName" Type="String" Nullable="false" MaxLength="255" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Candidate_Tbl" Relationship="TiranV1DBModel.CandidateSkills_Tbl" FromRole="Skills_Tbl" ToRole="Candidate_Tbl" />
+          <NavigationProperty Name="Category_Tbl" Relationship="TiranV1DBModel.SkillsCategory_Tbl" FromRole="Skills_Tbl" ToRole="Category_Tbl" />
+        </EntityType>
+        <Association Name="CandidateSkills_Tbl">
+          <End Role="Candidate_Tbl" Type="TiranV1DBModel.Candidate_Tbl" Multiplicity="*" />
+          <End Role="Skills_Tbl" Type="TiranV1DBModel.Skills_Tbl" Multiplicity="*" />
+        </Association>
+        <Association Name="SkillsCategory_Tbl">
+          <End Role="Category_Tbl" Type="TiranV1DBModel.Category_Tbl" Multiplicity="*" />
+          <End Role="Skills_Tbl" Type="TiranV1DBModel.Skills_Tbl" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TiranV1DBModelStoreContainer" CdmEntityContainer="TiranV1DBEntities">
+          <EntitySetMapping Name="Candidate_Tbl">
+            <EntityTypeMapping TypeName="TiranV1DBModel.Candidate_Tbl">
+              <MappingFragment StoreEntitySet="Candidate_Tbl">
+                <ScalarProperty Name="CandidateID" ColumnName="CandidateID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+                <ScalarProperty Name="Psword" ColumnName="Psword" />
+                <ScalarProperty Name="ConfirmPsword" ColumnName="ConfirmPsword" />
+                <ScalarProperty Name="AvatarUrl" ColumnName="AvatarUrl" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Category_Tbl">
+            <EntityTypeMapping TypeName="TiranV1DBModel.Category_Tbl">
+              <MappingFragment StoreEntitySet="Category_Tbl">
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Skills_Tbl">
+            <EntityTypeMapping TypeName="TiranV1DBModel.Skills_Tbl">
+              <MappingFragment StoreEntitySet="Skills_Tbl">
+                <ScalarProperty Name="SkillID" ColumnName="SkillID" />
+                <ScalarProperty Name="SkillName" ColumnName="SkillName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="CandidateSkills_Tbl" TypeName="TiranV1DBModel.CandidateSkills_Tbl" StoreEntitySet="CandidateSkills_Tbl">
+            <EndProperty Name="Candidate_Tbl">
+              <ScalarProperty Name="CandidateID" ColumnName="CandidateID" />
+            </EndProperty>
+            <EndProperty Name="Skills_Tbl">
+              <ScalarProperty Name="SkillID" ColumnName="SkillID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="SkillsCategory_Tbl" TypeName="TiranV1DBModel.SkillsCategory_Tbl" StoreEntitySet="SkillsCategory_Tbl">
+            <EndProperty Name="Category_Tbl">
+              <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+            </EndProperty>
+            <EndProperty Name="Skills_Tbl">
+              <ScalarProperty Name="SkillID" ColumnName="SkillID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

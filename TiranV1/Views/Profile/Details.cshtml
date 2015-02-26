@@ -1,0 +1,71 @@
+﻿@model TiranV1.Models.Candidate_Tbl
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Candidate_Tbl</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CandidateID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CandidateID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.FirstName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FirstName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.LastName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LastName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EmployeeID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EmployeeID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EmailID)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EmailID)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Psword)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Psword)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ConfirmPsword)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ConfirmPsword)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.AvatarUrl)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AvatarUrl)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
