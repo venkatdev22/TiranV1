@@ -2,116 +2,104 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Web;
-using System.Web.Mvc;
+using System.Web.Http;
 using TiranV1.Models;
 
 namespace TiranV1.Controllers
 {
-    public class ProfileController : Controller
+    public class ProfileController : ApiController
     {
         private TiranV1DBEntities db = new TiranV1DBEntities();
 
-        //
-        // GET: /Profile/
-
-        public ActionResult Index()
+        // GET api/Profile
+        public IEnumerable<Candidate_Tbl> GetCandidate_Tbl()
         {
-            return View(db.Candidate_Tbl.ToList());
+            return db.Candidate_Tbl.AsEnumerable();
         }
 
-        //
-        // GET: /Profile/Details/5
-
-        public ActionResult Details(int id = 0)
+        // GET api/Profile/5
+        public Candidate_Tbl GetCandidate_Tbl(int id)
         {
             Candidate_Tbl candidate_tbl = db.Candidate_Tbl.Find(id);
             if (candidate_tbl == null)
             {
-                return HttpNotFound();
+                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
             }
-            return View(candidate_tbl);
+
+            return candidate_tbl;
         }
 
-        //
-        // GET: /Profile/Create
-
-        public ActionResult Create()
+        // PUT api/Profile/5
+        public HttpResponseMessage PutCandidate_Tbl(int id, Candidate_Tbl candidate_tbl)
         {
-            return View();
+            if (!ModelState.IsValid)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+            }
+
+            if (id != candidate_tbl.CandidateID)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest);
+            }
+
+            db.Entry(candidate_tbl).State = EntityState.Modified;
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
+            }
+
+            return Request.CreateResponse(HttpStatusCode.OK);
         }
 
-        //
-        // POST: /Profile/Create
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(Candidate_Tbl candidate_tbl)
+        // POST api/Profile
+        public HttpResponseMessage PostCandidate_Tbl(Candidate_Tbl candidate_tbl)
         {
             if (ModelState.IsValid)
             {
                 db.Candidate_Tbl.Add(candidate_tbl);
                 db.SaveChanges();
-                return RedirectToAction("Index");
-            }
 
-            return View(candidate_tbl);
+                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, candidate_tbl);
+                response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = candidate_tbl.CandidateID }));
+                return response;
+            }
+            else
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+            }
         }
 
-        //
-        // GET: /Profile/Edit/5
-
-        public ActionResult Edit(int id = 0)
+        // DELETE api/Profile/5
+        public HttpResponseMessage DeleteCandidate_Tbl(int id)
         {
             Candidate_Tbl candidate_tbl = db.Candidate_Tbl.Find(id);
             if (candidate_tbl == null)
             {
-                return HttpNotFound();
+                return Request.CreateResponse(HttpStatusCode.NotFound);
             }
-            return View(candidate_tbl);
-        }
 
-        //
-        // POST: /Profile/Edit/5
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(Candidate_Tbl candidate_tbl)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(candidate_tbl).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(candidate_tbl);
-        }
-
-        //
-        // GET: /Profile/Delete/5
-
-        public ActionResult Delete(int id = 0)
-        {
-            Candidate_Tbl candidate_tbl = db.Candidate_Tbl.Find(id);
-            if (candidate_tbl == null)
-            {
-                return HttpNotFound();
-            }
-            return View(candidate_tbl);
-        }
-
-        //
-        // POST: /Profile/Delete/5
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Candidate_Tbl candidate_tbl = db.Candidate_Tbl.Find(id);
             db.Candidate_Tbl.Remove(candidate_tbl);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, ex);
+            }
+
+            return Request.CreateResponse(HttpStatusCode.OK, candidate_tbl);
         }
 
         protected override void Dispose(bool disposing)
