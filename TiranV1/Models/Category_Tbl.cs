@@ -18,8 +18,8 @@ namespace TiranV1.Models
         {
             this.Skills_Tbl = new HashSet<Skills_Tbl>();
         }
-
-        public int CategoryID { get; private set; }
+    
+        public int CategoryID { get; set; }
         public string CategoryName { get; set; }
     
         public virtual ICollection<Skills_Tbl> Skills_Tbl { get; set; }

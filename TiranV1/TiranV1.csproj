@@ -164,38 +164,41 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Candidate_Tbl.cs">
-      <DependentUpon>TiranV1DBModel.tt</DependentUpon>
+      <DependentUpon>TiranV1LocalDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Category_Tbl.cs">
-      <DependentUpon>TiranV1DBModel.tt</DependentUpon>
+      <DependentUpon>TiranV1LocalDbEntity.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Skills_Tbl.cs">
-      <DependentUpon>TiranV1DBModel.tt</DependentUpon>
+      <DependentUpon>TiranV1LocalDbEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TiranV1DBModel.Context.cs">
+    <Compile Include="Models\TiranV1LocalDbEntity.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>TiranV1DBModel.Context.tt</DependentUpon>
+      <DependentUpon>TiranV1LocalDbEntity.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TiranV1DBModel.cs">
+    <Compile Include="Models\TiranV1LocalDbEntity.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>TiranV1DBModel.tt</DependentUpon>
+      <DependentUpon>TiranV1LocalDbEntity.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TiranV1DBModel.Designer.cs">
+    <Compile Include="Models\TiranV1LocalDbEntity.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>TiranV1DBModel.edmx</DependentUpon>
+      <DependentUpon>TiranV1LocalDbEntity.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\TiranV1DBLocal.mdf" />
+    <Content Include="App_Data\TiranV1DBLocal_log.ldf">
+      <DependentUpon>TiranV1DBLocal.mdf</DependentUpon>
+    </Content>
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -264,25 +267,26 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\HelpPageApiModel.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <EntityDeploy Include="Models\TiranV1DBModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>TiranV1DBModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\TiranV1DBModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TiranV1DBModel.edmx</DependentUpon>
-      <LastGenOutput>TiranV1DBModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\TiranV1DBModel.edmx.diagram">
-      <DependentUpon>TiranV1DBModel.edmx</DependentUpon>
-    </Content>
-    <Content Include="Models\TiranV1DBModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TiranV1DBModel.edmx</DependentUpon>
-      <LastGenOutput>TiranV1DBModel.cs</LastGenOutput>
-    </Content>
     <Content Include="ClassDiagram1.cd" />
-    <None Include="Properties\PublishProfiles\Tiranv1.pubxml" />
+    <EntityDeploy Include="Models\TiranV1LocalDbEntity.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>TiranV1LocalDbEntity.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\TiranV1LocalDbEntity.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TiranV1LocalDbEntity.edmx</DependentUpon>
+      <LastGenOutput>TiranV1LocalDbEntity.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\TiranV1LocalDbEntity.edmx.diagram">
+      <DependentUpon>TiranV1LocalDbEntity.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\TiranV1LocalDbEntity.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TiranV1LocalDbEntity.edmx</DependentUpon>
+      <LastGenOutput>TiranV1LocalDbEntity.cs</LastGenOutput>
+    </Content>
+    <None Include="Properties\PublishProfiles\tiranv1dev - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\tiranv1dev - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
@@ -326,10 +330,13 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\ProfileView\Index.cshtml" />
+    <Content Include="Views\ProfileView\Details.cshtml" />
+    <Content Include="Views\ProfileView\Create.cshtml" />
+    <Content Include="Views\ProfileView\Edit.cshtml" />
+    <Content Include="Views\ProfileView\Delete.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>

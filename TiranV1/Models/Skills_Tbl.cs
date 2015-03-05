@@ -20,7 +20,7 @@ namespace TiranV1.Models
             this.Category_Tbl = new HashSet<Category_Tbl>();
         }
     
-        public int SkillID { get; private set; }
+        public int SkillID { get; set; }
         public string SkillName { get; set; }
     
         public virtual ICollection<Candidate_Tbl> Candidate_Tbl { get; set; }

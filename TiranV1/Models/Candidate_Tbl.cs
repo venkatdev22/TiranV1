@@ -18,8 +18,8 @@ namespace TiranV1.Models
         {
             this.Skills_Tbl = new HashSet<Skills_Tbl>();
         }
-
-        public int CandidateID { get; private set; }
+    
+        public int CandidateID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int EmployeeID { get; set; }

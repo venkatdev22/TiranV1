@@ -13,10 +13,10 @@ namespace TiranV1.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class TiranV1DBEntities : DbContext
+    public partial class TiranV1DBLocalEntities : DbContext
     {
-        public TiranV1DBEntities()
-            : base("name=TiranV1DBEntities")
+        public TiranV1DBLocalEntities()
+            : base("name=TiranV1DBLocalEntities")
         {
         }
     
